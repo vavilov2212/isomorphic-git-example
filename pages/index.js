@@ -1,3 +1,7 @@
+import IsomorphicGitApi from 'IsomorphicGitApi/IsomorphicGitApi';
+
 export default function Home() {
-  return <div>test</div>
+  return (
+    <IsomorphicGitApi />
+  );
 }
