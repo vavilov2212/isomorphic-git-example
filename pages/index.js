@@ -1,7 +1,7 @@
-import IsomorphicGitApi from 'IsomorphicGitApi/IsomorphicGitApi';
+import IsomorphicGitApiRoutes from 'IsomorphicGitApiRoutes/IsomorphicGitApiRoutes';
 
 export default function Home() {
   return (
-    <IsomorphicGitApi />
+    <IsomorphicGitApiRoutes />
   );
 }

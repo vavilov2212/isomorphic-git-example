@@ -1,0 +1,30 @@
+.pageTitle {
+  font-size: 18px;
+  margin: 0 0 24px;
+}
+
+.cloneRequestContainer {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+
+  input {
+    flex: 1;
+    padding: 4px 8px;
+  }
+}
+
+.cloneButton {
+  width: max-content;
+  padding: 4px 8px;
+}
+
+.cloneResponseContainer {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  border: 1px solid grey;
+  padding: 4px;
+}
