@@ -4,9 +4,6 @@ const IsomorphicGitApi = () => {
       'api/clone',
       {
         method: 'POST',
-        headers: {
-          "origin": "github.com"
-        }
       }
     );
   };
