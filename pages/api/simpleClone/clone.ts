@@ -25,7 +25,7 @@ export default async function handler(req, res) {
     onMessage,
     onProgress,
     dir,
-    url: repoUrl || 'https://cors.isomorphic-git.org/github.com/isomorphic-git/lightning-fs',
+    url: repoUrl || 'https://github.com/isomorphic-git/lightning-fs',
     corsProxy: 'https://cors.isomorphic-git.org',
   })
     .then(console.log)
