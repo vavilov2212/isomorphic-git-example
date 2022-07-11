@@ -21,9 +21,31 @@
 }
 
 .cloneResponseContainer {
+  position: relative;
+  bottom: 0;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   width: max-content;
   border: 1px solid grey;
-  padding: 4px;
+  padding: 8px 4px;
+  height: 50vh;
+}
+
+.cloneFile {
+  display: flex;
+  padding: 4px 16px;
+  align-items: center;
+
+  &:hover {
+    background: #A5D6A7;
+  }
+
+  & svg {
+    cursor: pointer;
+  }
+}
+
+.cloneFileName {
+  flex: 1;
 }
