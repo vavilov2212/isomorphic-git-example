@@ -1,0 +1,88 @@
+.pageContainer {
+  width: 100%;
+}
+
+.pageHeadingContainer {
+
+}
+
+.pageTitle {
+  font-size: 18px;
+  margin: 0 0 24px;
+}
+
+.cloneRequestContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+  width: 70%;
+
+  input {
+    flex: 1;
+    padding: 4px 8px;
+  }
+}
+
+.cloneButton {
+  width: max-content;
+  padding: 4px 8px;
+}
+
+.cloneResponseContainer {
+  position: relative;
+  bottom: 0;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  border: 1px solid grey;
+  padding: 8px 4px;
+  height: 50vh;
+}
+
+.cloneFile {
+  display: flex;
+  padding: 4px 16px;
+  align-items: center;
+
+  &:hover {
+    background: #A5D6A7;
+  }
+
+  & svg {
+    cursor: pointer;
+  }
+}
+
+.cloneFileName {
+  flex: 1;
+}
+
+.commandsContainer {
+  display: flex;
+  gap: 16px;
+}
+
+.addCommandContainer {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 8px;
+}
+
+.addMetaInfContainer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.addFileNameInput {
+  flex: 1;
+  padding: 4px 8px;
+}
+
+.addInput {
+  flex: 1;
+  padding: 8px;
+}

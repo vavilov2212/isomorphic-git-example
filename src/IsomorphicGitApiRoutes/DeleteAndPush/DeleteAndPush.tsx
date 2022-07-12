@@ -36,12 +36,15 @@ const DeleteAndPush = (props: DeleteAdnPushProps) => {
         method: 'POST', body: JSON.stringify({ filepath }) 
       }
     )
-      .then(res => {
-        console.log('res', res);
-        submitClone();
+      .then(response => {
+        console.log('delete response', response);
+        if (response.status === 400) {
+          return response.json();
+        }
 
-        if (res) return res.json();
-      });
+        submitClone();
+      })
+      .catch(e => console.log('error', e));
   };
 
   return (

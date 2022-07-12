@@ -9,6 +9,7 @@ const Layout = ({ children }) => {
     >
       <a href="/simpleClone">Simple clone</a>
       <a href="/simpleDelete">Delete and push</a>
+      <a href="/simpleAdd">Add and push</a>
     </aside>
   );
 }

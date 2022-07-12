@@ -1,27 +1,30 @@
 import path from 'path';
 import http from 'isomorphic-git/http/node';
-/* import http from '../../../lib/request'; */
 import git from 'isomorphic-git';
 import fs from 'fs';
 
 export default async function handler(req, res) {
-  const { filepath } = JSON.parse(req.body);
+  const { filepath, filecontent } = JSON.parse(req.body);
 
-  console.log('filepath', filepath);
+  console.log('simpleAdd filepath', filepath);
+  console.log('simpleAdd fileContent', filecontent);
 
   const dir = path.join(process.cwd(), 'test-clone');
-  const message = 'Delete commit message.';
+  const file = path.join(dir, filepath);
+  console.log('file', file);
+  const message = 'Add commit message.';
 
   if (fs.existsSync(dir)) {
     try {
-      await git.remove({ fs, dir: './test-clone', filepath })
+      fs.appendFileSync(file, filecontent);
+      await git.add({ fs, dir: './test-clone', filepath  })
     } catch(e) {
       console.log('git.add error', e);
     }
   }
 
   let remotes = await git.listRemotes({ fs, dir })
-  console.log('simpleDelete remotes', remotes);
+  console.log('simpleAdd remotes', remotes);
 
   await git.commit({
     fs,
@@ -45,10 +48,6 @@ export default async function handler(req, res) {
       remote: 'origin',
       ref: 'master',
       onAuth: () => ({ username: 'vavilov2212', password: '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' }),
-              /* headers: { */
-          /* Authentication: `Basic ${Buffer.from(`vavilov2212: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`).toString('base64')}` */
-        /* } */
-
     })
       .then((git_res) => {
         console.log('git_res', git_res);
