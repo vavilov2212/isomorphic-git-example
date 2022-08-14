@@ -47,7 +47,7 @@ export default async function handler(req, res) {
       onMessage,
       remote: 'origin',
       ref: 'master',
-      onAuth: () => ({ username: 'vavilov2212', password: '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' }),
+      onAuth: () => ({ username: 'vavilov2212', password: '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' }),
     })
       .then((git_res) => {
         console.log('git_res', git_res);

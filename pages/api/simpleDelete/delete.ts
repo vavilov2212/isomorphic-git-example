@@ -44,7 +44,7 @@ export default async function handler(req, res) {
       onMessage,
       remote: 'origin',
       ref: 'master',
-      onAuth: () => ({ username: 'vavilov2212', password: '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' }),
+      onAuth: () => ({ username: 'vavilov2212', password: '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' }),
               /* headers: { */
           /* Authentication: `Basic ${Buffer.from(`vavilov2212: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`).toString('base64')}` */
         /* } */
