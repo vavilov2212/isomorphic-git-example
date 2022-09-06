@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import CloneInputs from 'CloneInputs/CloneInputs';
 
 import styles from './DeleteAndPush.module.scss';
 
@@ -10,8 +11,8 @@ const DeleteAndPush = (props: DeleteAdnPushProps) => {
   const { directoryArray } = props;
 
   console.log('directoryArray', directoryArray);
-  const [repoUrl, setRepoUrl] = useState('https://github.com/vavilov2212/wiki-articles');
   const [cloneResponse, setCloneResponse] = useState([]);
+  const [deleteResponse, setDeleteResponse] = useState([]);
 
   useEffect(() => {
     if (directoryArray?.length) {
@@ -19,8 +20,14 @@ const DeleteAndPush = (props: DeleteAdnPushProps) => {
     }
   }, [directoryArray])
 
-  const submitClone = async () => {
-    const response = await fetch('api/simpleClone/clone', { method: 'POST', body: JSON.stringify({ repoUrl }) })
+  const submitClone = async (repoUrl, corsUrl) => {
+    const response = await fetch(
+      'api/simpleClone/clone',
+      {
+        method: 'POST',
+        body: JSON.stringify({ repoUrl, corsUrl }) 
+      }
+    )
       .then(res => {
         console.log('res', res);
         if (res) return res.json();
@@ -29,22 +36,21 @@ const DeleteAndPush = (props: DeleteAdnPushProps) => {
     setCloneResponse(response);
   };
 
-  const submitDelete = async (filepath: string) => {
-    await fetch(
+  const submitDelete = async (
+    filepath: string,
+  ) => {
+    const response = await fetch(
       'api/simpleDelete/delete',
       {
         method: 'POST', body: JSON.stringify({ filepath }) 
       }
     )
       .then(response => {
-        console.log('delete response', response);
-        if (response.status === 400) {
-          return response.json();
-        }
-
-        submitClone();
+        return response.json();
       })
       .catch(e => console.log('error', e));
+
+    setDeleteResponse(response);
   };
 
   return (
@@ -53,11 +59,10 @@ const DeleteAndPush = (props: DeleteAdnPushProps) => {
       <p>This clones repo <b>server-side</b>, using nextjs api routes.</p>
       <p>You can also <b>delete</b> files.</p>
 
-      <div className={styles.cloneRequestContainer}>
-        <label>Repository url:</label>
-        <input type="text" value={repoUrl} onChange={e => setRepoUrl(e.target.value)}/>
-        <button className={styles.cloneButton} onClick={submitClone}>Clone</button>
-      </div>
+      <CloneInputs
+        submitClone={submitClone}
+        trigger={deleteResponse}
+      />
 
       {!!cloneResponse?.length &&
         <div className={styles.cloneResponseContainer}>

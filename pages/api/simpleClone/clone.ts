@@ -5,7 +5,7 @@ import http from 'isomorphic-git/http/node';
 import fs from 'fs';
 
 export default async function handler(req, res) {
-  const { repoUrl } = JSON.parse(req.body);
+  const { repoUrl, corsUrl } = JSON.parse(req.body);
 
   console.log('repoUrl', repoUrl);
 
@@ -25,8 +25,8 @@ export default async function handler(req, res) {
     onMessage,
     onProgress,
     dir,
-    url: repoUrl || 'https://github.com/isomorphic-git/lightning-fs',
-    corsProxy: 'http://localhost:9999',
+    url: repoUrl || 'https://github.com/vavilov2212/wiki-articles',
+    corsProxy: corsUrl || 'http://localhost:9999',
   })
     .then(console.log)
     .catch(console.log);

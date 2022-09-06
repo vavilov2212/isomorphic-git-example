@@ -16,6 +16,7 @@ const SimpleClone = () => {
     setCloneResponse(response);
   };
 
+  console.log('cloneResponse', cloneResponse);
   return (
     <div>
       <p className={styles.pageTitle}>Simple clone repository using "isomorphic-git"</p>

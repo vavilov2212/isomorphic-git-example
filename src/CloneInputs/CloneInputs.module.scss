@@ -1,0 +1,25 @@
+.requestContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 24px 0;
+  padding: 8px;
+  border: 1px solid black;
+
+  input {
+    flex: 1;
+    padding: 4px 8px;
+  }
+}
+
+.request {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.cloneButton {
+  width: max-content;
+  padding: 4px 8px;
+}
+
