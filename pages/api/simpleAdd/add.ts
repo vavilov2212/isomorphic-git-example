@@ -55,7 +55,7 @@ export default async function handler(req, res) {
       })
   } catch(e) {
     console.log('push error', e);
-    res.status(400).json({ erro: e.message });
+    res.status(400).json({ error: e.message });
   }
 };
 

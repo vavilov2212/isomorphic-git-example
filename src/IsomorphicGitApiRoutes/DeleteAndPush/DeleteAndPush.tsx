@@ -50,8 +50,8 @@ const DeleteAndPush = (props: DeleteAdnPushProps) => {
   return (
     <div>
       <p className={styles.pageTitle}>Delete and push files to repository using "isomorphic-git"</p>
-      <p>This clones <a href="https://github.com/vavilov2212/wiki-articles">https://github.com/vavilov2212/wiki-articles</a></p>
       <p>This clones repo <b>server-side</b>, using nextjs api routes.</p>
+      <p>You can also <b>delete</b> files.</p>
 
       <div className={styles.cloneRequestContainer}>
         <label>Repository url:</label>
@@ -59,9 +59,6 @@ const DeleteAndPush = (props: DeleteAdnPushProps) => {
         <button className={styles.cloneButton} onClick={submitClone}>Clone</button>
       </div>
 
-      {!cloneResponse?.length &&
-        <span>Here will be list of files after clone.</span>
-      }
       {!!cloneResponse?.length &&
         <div className={styles.cloneResponseContainer}>
           {cloneResponse.map(cR => (
@@ -71,6 +68,10 @@ const DeleteAndPush = (props: DeleteAdnPushProps) => {
             </div>
           ))}
         </div>
+      }
+
+      {!cloneResponse?.length &&
+        <p className={styles.preloaderCaption}>Here will be list of files after clone.</p>
       }
     </div>
   );

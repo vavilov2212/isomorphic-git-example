@@ -27,13 +27,14 @@ const SimpleClone = () => {
         <button className={styles.cloneButton} onClick={submitClone}>Clone</button>
       </div>
 
-      {!cloneResponse?.length &&
-        <span>Here will be list of files after clone.</span>
-      }
       {!!cloneResponse?.length &&
         <div className={styles.cloneResponseContainer}>
           {cloneResponse.map(cR => <span key={`${cR}`}>{cR}</span>)}
         </div>
+      }
+
+      {!cloneResponse?.length &&
+        <p className={styles.preloaderCaption}>Here will be list of files after clone.</p>
       }
     </div>
   );

@@ -72,9 +72,9 @@ const AddAndPush = (props: DeleteAdnPushProps) => {
   return (
     <div className={styles.pageContainer}>
       <div className={styles.pageHeadingContainer}>
-        <p className={styles.pageTitle}>Delete and push files to repository using "isomorphic-git"</p>
-        <p>This clones <a href="https://github.com/vavilov2212/wiki-articles">https://github.com/vavilov2212/wiki-articles</a></p>
+        <p className={styles.pageTitle}>Add and push files to repository using "isomorphic-git"</p>
         <p>This clones repo <b>server-side</b>, using nextjs api routes.</p>
+        <p>You can <b>add and delete</b> files.</p>
 
         <div className={styles.cloneRequestContainer}>
           <label>Repository url:</label>
@@ -84,10 +84,8 @@ const AddAndPush = (props: DeleteAdnPushProps) => {
       </div>
 
       <div className={styles.commandsContainer}>
-        {!cloneResponse?.length &&
-          <span>Here will be list of files after clone.</span>
-        }
         {!!cloneResponse?.length &&
+        <>
           <div className={styles.cloneResponseContainer}>
             {cloneResponse.map(cR => (
               <div key={`${cR}`} className={styles.cloneFile}>
@@ -96,16 +94,22 @@ const AddAndPush = (props: DeleteAdnPushProps) => {
               </div>
             ))}
           </div>
+          <div className={styles.addCommandContainer}>
+            <div className={styles.addMetaInfContainer}>
+              <label>File name:</label>
+              <input className={styles.addFileNameInput} type="text" value={addFileName} onChange={e => setAddFileName(e.target.value)}/>
+              <button className={styles.cloneButton} onClick={submitAddFile}>Add</button>
+            </div>
+            <textarea className={styles.addInput} value={addValue} onChange={e => setAddValue(e.target.value)} />
+          </div>
+      </>
         }
 
-        <div className={styles.addCommandContainer}>
-          <div className={styles.addMetaInfContainer}>
-            <label>File name:</label>
-            <input className={styles.addFileNameInput} type="text" value={addFileName} onChange={e => setAddFileName(e.target.value)}/>
-            <button className={styles.cloneButton} onClick={submitAddFile}>Add</button>
-          </div>
-          <textarea className={styles.addInput} value={addValue} onChange={e => setAddValue(e.target.value)} />
-        </div>
+
+        {!cloneResponse?.length &&
+          <p className={styles.preloaderCaption}>Here will be list of files after clone.</p>
+        }
+
       </div>
     </div>
   );

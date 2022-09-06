@@ -1,17 +1,38 @@
+import cn from 'classnames';
+import { useRouter } from 'next/router';
+
 import styles from './Navigation.module.scss';
 
-const Layout = ({ children }) => {
+const links = [
+  { label: 'Simple clone', href: '/simpleClone' },
+  { label: 'Delete and push', href: '/simpleDelete' },
+  { label: 'Add and push', href: '/simpleAdd' },
+];
+
+const Navigation = () => {
+
+  const { pathname } = useRouter();
+
+  console.log('pathname', pathname);
   return (
     <aside
       className={styles.nav} 
       role="navigation"
       aria-label="main navigation"
     >
-      <a href="/simpleClone">Simple clone</a>
-      <a href="/simpleDelete">Delete and push</a>
-      <a href="/simpleAdd">Add and push</a>
+      {links.map(link => 
+        <a
+        className={cn(
+          styles.link,
+          {[styles.activeLink]: pathname === link.href}
+        )}
+          href={link.href}
+        >
+          {link.label}
+        </a>
+      )}
     </aside>
   );
 }
 
-export default Layout;
+export default Navigation;

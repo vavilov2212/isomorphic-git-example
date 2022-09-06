@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "classnames": "^2.3.1",
     "hpagent": "^1.0.0",
     "isomorphic-git": "^1.18.3",
     "next": "latest",
