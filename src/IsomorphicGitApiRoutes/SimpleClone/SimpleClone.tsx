@@ -2,7 +2,7 @@ import { useState } from 'react';
 import CloneInputs from 'CloneInputs/CloneInputs';
 import styles from './SimpleClone.module.scss';
 
-const SimpleClone = (props) => {
+const SimpleClone = () => {
   const [response, setResponse] = useState([]);
 
   return (

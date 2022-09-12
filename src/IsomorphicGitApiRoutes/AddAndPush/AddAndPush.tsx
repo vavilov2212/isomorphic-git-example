@@ -10,7 +10,6 @@ interface DeleteAdnPushProps {
 const AddAndPush = (props: DeleteAdnPushProps) => {
   const { directoryArray } = props;
 
-  const [repoUrl, setRepoUrl] = useState('https://github.com/vavilov2212/wiki-articles');
   const [addFileName, setAddFileName] = useState('');
   const [addValue, setAddValue] = useState('');
   const [cloneResponse, setCloneResponse] = useState([]);
@@ -22,22 +21,6 @@ const AddAndPush = (props: DeleteAdnPushProps) => {
       setCloneResponse(directoryArray);
     }
   }, [directoryArray])
-
-  const submitClone = async (repoUrl: string, corsUrl: string) => {
-    const response = await fetch(
-      'api/simpleClone/clone',
-      {
-        method: 'POST',
-        body: JSON.stringify({ repoUrl, corsUrl }) 
-      }
-    )
-      .then(res => {
-        console.log('res', res);
-        if (res) return res.json();
-      });
-
-    setCloneResponse(response);
-  };
 
   const submitDelete = async (filepath: string) => {
     const response = await fetch(
@@ -76,15 +59,10 @@ const AddAndPush = (props: DeleteAdnPushProps) => {
         <p>You can <b>add</b> and <b>delete</b> files.</p>
 
         <CloneInputs
-          submitClone={submitClone}
+          setResponse={setCloneResponse}
           trigger={deleteResponse || addResponse}
         />
 
-        {/* <div className={styles.cloneRequestContainer}> */
-        /*   <label>Repository url:</label> */
-        /*   <input type="text" value={repoUrl} onChange={e => setRepoUrl(e.target.value)}/> */
-        /*   <button className={styles.cloneButton} onClick={submitClone}>Clone</button> */
-        /* </div> */}
       </div>
 
       <div className={styles.commandsContainer}>

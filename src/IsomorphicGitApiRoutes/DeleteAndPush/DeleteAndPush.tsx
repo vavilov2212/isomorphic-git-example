@@ -10,7 +10,6 @@ interface DeleteAdnPushProps {
 const DeleteAndPush = (props: DeleteAdnPushProps) => {
   const { directoryArray } = props;
 
-  console.log('directoryArray', directoryArray);
   const [cloneResponse, setCloneResponse] = useState([]);
   const [deleteResponse, setDeleteResponse] = useState([]);
 
@@ -19,22 +18,6 @@ const DeleteAndPush = (props: DeleteAdnPushProps) => {
       setCloneResponse(directoryArray);
     }
   }, [directoryArray])
-
-  const submitClone = async (repoUrl: string, corsUrl: string) => {
-    const response = await fetch(
-      'api/simpleClone/clone',
-      {
-        method: 'POST',
-        body: JSON.stringify({ repoUrl, corsUrl }) 
-      }
-    )
-      .then(res => {
-        console.log('res', res);
-        if (res) return res.json();
-      });
-
-    setCloneResponse(response);
-  };
 
   const submitDelete = async (
     filepath: string,
@@ -58,7 +41,7 @@ const DeleteAndPush = (props: DeleteAdnPushProps) => {
       <p>You can also <b>delete</b> files.</p>
 
       <CloneInputs
-        submitClone={submitClone}
+        setResponse={setCloneResponse}
         trigger={deleteResponse}
       />
 
