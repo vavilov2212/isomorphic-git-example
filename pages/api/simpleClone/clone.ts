@@ -19,30 +19,35 @@ export default async function handler(req, res) {
 
   const dir = path.join(process.cwd(), 'test-clone');
 
-  await git.clone({
-    fs,
-    http,
-    onMessage,
-    onProgress,
-    dir,
-    url: repoUrl || 'https://github.com/vavilov2212/wiki-articles',
-    corsProxy: corsUrl || 'http://localhost:9999',
-  })
-    .then(console.log)
-    .catch(console.log);
+  console.log('dir', dir);
 
-  const recursiveDirStruct = (distPath) => {
-    return fs.readdirSync(distPath).filter(function (file) {
-      console.log('file', file);
-      if (file === '.git') return false;
-      return fs.statSync(distPath + '/' + file).isDirectory();
-    }).reduce(function(all, subDir) {
-      return [...all, ...fs.readdirSync(distPath + '/' + subDir).map(e => subDir + '/' + e)]
-    }, []);
+  try {
+    await git.clone({
+      fs,
+      http,
+      onMessage: console.log,
+      onProgress: console.log,
+      dir,
+      url: repoUrl || 'https://github.com/vavilov2212/wiki-articles',
+      corsProxy: corsUrl || 'http://localhost:9999',
+    })
+      .then(console.log)
+      .catch(console.log);
+  } catch(e) {
+    console.log('git.clone error', e);
+  }
+
+  const recursiveDirStruct = (distPath: string): string[] => {
+    return fs.readdirSync(distPath)
+      .filter(function (file) {
+        console.log('file', file);
+        if (file === '.git') return false;
+        return fs.statSync(distPath + '/' + file).isDirectory();
+      })
+      .reduce(function(all, subDir) {
+        return [...all, ...fs.readdirSync(distPath + '/' + subDir).map(e => subDir + '/' + e)]
+      }, []);
   };
 
   res.status(200).json(recursiveDirStruct('./test-clone'));
 };
-
-const onMessage = (msg: any) => console.log(msg);
-const onProgress = (msg: any) => console.log(msg);

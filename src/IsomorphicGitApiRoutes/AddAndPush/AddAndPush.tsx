@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import CloneInputs from 'CloneInputs/CloneInputs';
 
 import styles from './AddAndPush.module.scss';
 
@@ -13,6 +14,8 @@ const AddAndPush = (props: DeleteAdnPushProps) => {
   const [addFileName, setAddFileName] = useState('');
   const [addValue, setAddValue] = useState('');
   const [cloneResponse, setCloneResponse] = useState([]);
+  const [addResponse, setAddResponse] = useState([]);
+  const [deleteResponse, setDeleteResponse] = useState([]);
 
   useEffect(() => {
     if (directoryArray?.length) {
@@ -20,8 +23,14 @@ const AddAndPush = (props: DeleteAdnPushProps) => {
     }
   }, [directoryArray])
 
-  const submitClone = async () => {
-    const response = await fetch('api/simpleClone/clone', { method: 'POST', body: JSON.stringify({ repoUrl }) })
+  const submitClone = async (repoUrl: string, corsUrl: string) => {
+    const response = await fetch(
+      'api/simpleClone/clone',
+      {
+        method: 'POST',
+        body: JSON.stringify({ repoUrl, corsUrl }) 
+      }
+    )
       .then(res => {
         console.log('res', res);
         if (res) return res.json();
@@ -31,25 +40,20 @@ const AddAndPush = (props: DeleteAdnPushProps) => {
   };
 
   const submitDelete = async (filepath: string) => {
-    await fetch(
+    const response = await fetch(
       'api/simpleDelete/delete',
       {
         method: 'POST', body: JSON.stringify({ filepath }) 
       }
     )
-      .then(response => {
-        console.log('delete response', response);
-        if (response.status === 400) {
-          return response.json();
-        }
-
-        submitClone();
-      })
+      .then(response => response.json())
       .catch(e => console.log('delete error', e));
+
+    setDeleteResponse(response);
   };
 
   const submitAddFile = async () => {
-    await fetch(
+    const response = await fetch(
       'api/simpleAdd/add',
       {
         method: 'POST', body: JSON.stringify({
@@ -58,15 +62,10 @@ const AddAndPush = (props: DeleteAdnPushProps) => {
         }) 
       }
     )
-      .then(response => {
-        console.log('add response', response);
-        if (response.status === 400) {
-          return response.json();
-        }
-
-        submitClone();
-      })
+      .then(response => response.json())
       .catch(e => console.log('add error', e));
+
+    setAddResponse(response);
   };
 
   return (
@@ -74,13 +73,18 @@ const AddAndPush = (props: DeleteAdnPushProps) => {
       <div className={styles.pageHeadingContainer}>
         <p className={styles.pageTitle}>Add and push files to repository using "isomorphic-git"</p>
         <p>This clones repo <b>server-side</b>, using nextjs api routes.</p>
-        <p>You can <b>add and delete</b> files.</p>
+        <p>You can <b>add</b> and <b>delete</b> files.</p>
 
-        <div className={styles.cloneRequestContainer}>
-          <label>Repository url:</label>
-          <input type="text" value={repoUrl} onChange={e => setRepoUrl(e.target.value)}/>
-          <button className={styles.cloneButton} onClick={submitClone}>Clone</button>
-        </div>
+        <CloneInputs
+          submitClone={submitClone}
+          trigger={deleteResponse || addResponse}
+        />
+
+        {/* <div className={styles.cloneRequestContainer}> */
+        /*   <label>Repository url:</label> */
+        /*   <input type="text" value={repoUrl} onChange={e => setRepoUrl(e.target.value)}/> */
+        /*   <button className={styles.cloneButton} onClick={submitClone}>Clone</button> */
+        /* </div> */}
       </div>
 
       <div className={styles.commandsContainer}>

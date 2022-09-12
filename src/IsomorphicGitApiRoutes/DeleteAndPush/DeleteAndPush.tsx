@@ -20,7 +20,7 @@ const DeleteAndPush = (props: DeleteAdnPushProps) => {
     }
   }, [directoryArray])
 
-  const submitClone = async (repoUrl, corsUrl) => {
+  const submitClone = async (repoUrl: string, corsUrl: string) => {
     const response = await fetch(
       'api/simpleClone/clone',
       {
@@ -45,9 +45,7 @@ const DeleteAndPush = (props: DeleteAdnPushProps) => {
         method: 'POST', body: JSON.stringify({ filepath }) 
       }
     )
-      .then(response => {
-        return response.json();
-      })
+      .then(response => response.json())
       .catch(e => console.log('error', e));
 
     setDeleteResponse(response);

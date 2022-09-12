@@ -1,14 +1,12 @@
-import Layout from 'Layout/Layout';
 import Navigation from 'Navigation/Navigation';
 import 'styles/app.css';
 
 export default function App({ Component, pageProps }) {
-  console.log('pageProps', pageProps);
 
   return (
-    <Layout>
+    <div className="applicationContainer">
       <Navigation />
       <Component {...pageProps} />
-    </Layout>
+    </div>
   )
 };
