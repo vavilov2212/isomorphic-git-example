@@ -1,7 +1,11 @@
+import Layout from 'Layout/Layout';
 import { SimpleCloneUI } from 'IsomorphicGitApiRoutes';
 
 export default function SimpleClone() {
+
   return (
-    <SimpleCloneUI />
+    <Layout>
+      <SimpleCloneUI />
+    </Layout>
   );
 }

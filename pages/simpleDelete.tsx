@@ -18,10 +18,8 @@ export async function getStaticProps() {
     }
   )
     .then(res => {
-      console.log('deleteAdnPush getStaticProps res', res);
       if (res) return res.json();
     });
-    console.log('response', response);
 
   return {
     props: {

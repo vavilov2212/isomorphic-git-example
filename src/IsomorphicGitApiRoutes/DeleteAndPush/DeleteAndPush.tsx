@@ -10,7 +10,6 @@ interface DeleteAdnPushProps {
 const DeleteAndPush = (props: DeleteAdnPushProps) => {
   const { directoryArray } = props;
 
-  console.log('directoryArray', directoryArray);
   const [cloneResponse, setCloneResponse] = useState([]);
   const [deleteResponse, setDeleteResponse] = useState([]);
 
@@ -19,22 +18,6 @@ const DeleteAndPush = (props: DeleteAdnPushProps) => {
       setCloneResponse(directoryArray);
     }
   }, [directoryArray])
-
-  const submitClone = async (repoUrl, corsUrl) => {
-    const response = await fetch(
-      'api/simpleClone/clone',
-      {
-        method: 'POST',
-        body: JSON.stringify({ repoUrl, corsUrl }) 
-      }
-    )
-      .then(res => {
-        console.log('res', res);
-        if (res) return res.json();
-      });
-
-    setCloneResponse(response);
-  };
 
   const submitDelete = async (
     filepath: string,
@@ -45,9 +28,7 @@ const DeleteAndPush = (props: DeleteAdnPushProps) => {
         method: 'POST', body: JSON.stringify({ filepath }) 
       }
     )
-      .then(response => {
-        return response.json();
-      })
+      .then(response => response.json())
       .catch(e => console.log('error', e));
 
     setDeleteResponse(response);
@@ -57,10 +38,10 @@ const DeleteAndPush = (props: DeleteAdnPushProps) => {
     <div>
       <p className={styles.pageTitle}>Delete and push files to repository using "isomorphic-git"</p>
       <p>This clones repo <b>server-side</b>, using nextjs api routes.</p>
-      <p>You can also <b>delete</b> files.</p>
+      <p>You can <b>delete</b> files.</p>
 
       <CloneInputs
-        submitClone={submitClone}
+        setResponse={setCloneResponse}
         trigger={deleteResponse}
       />
 
