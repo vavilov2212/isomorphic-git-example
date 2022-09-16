@@ -38,7 +38,7 @@ const DeleteAndPush = (props: DeleteAdnPushProps) => {
     <div>
       <p className={styles.pageTitle}>Delete and push files to repository using "isomorphic-git"</p>
       <p>This clones repo <b>server-side</b>, using nextjs api routes.</p>
-      <p>You can also <b>delete</b> files.</p>
+      <p>You can <b>delete</b> files.</p>
 
       <CloneInputs
         setResponse={setCloneResponse}

@@ -43,8 +43,8 @@ export default async function handler(req, res) {
       fs,
       dir,
       http,
-      onProgress,
-      onMessage,
+      onProgress: console.log,
+      onMessage: console.log,
       remote: 'origin',
       ref: 'master',
       onAuth: () => ({ username: 'vavilov2212', password: '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' }),
@@ -58,6 +58,3 @@ export default async function handler(req, res) {
     res.status(400).json({ error: e.message });
   }
 };
-
-const onMessage = (msg: any) => console.log(msg);
-const onProgress = (msg: any) => console.log(msg);
